@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Players List</h1>
+    <form method="POST">
+        <label for="ip">Server IP:</label>
+        <input type="text" id="ip" name="ip" required>
+        <label for="port">Port:</label>
+        <input type="number" id="port" name="port" required>
+        <button type="submit">Get Players</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% elif players %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Identifiers</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td>{{ player.name }}</td>
+                        <td>
+                            {% for identifier in player.identifiers %}
+                                {{ identifier }}<br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
